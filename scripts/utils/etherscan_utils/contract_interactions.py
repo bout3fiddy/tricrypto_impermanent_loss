@@ -11,11 +11,11 @@ class Contract(Account):
 
     def get_tx_with(
         self, addr: str, start_block: int = 0, end_block=99999999, sort="asc"
-    ) -> list(dict):
+    ):
 
         self.url_dict[self.ACTION] = "txlist"
         self.url_dict[self.SORT] = sort
-        self.url_dict[self.START_BLOCK] = str(start_block)§
+        self.url_dict[self.START_BLOCK] = str(start_block)
         self.url_dict[self.END_BLOCK] = str(end_block)
         self.build_url()
         req = self.connect()
@@ -24,18 +24,23 @@ class Contract(Account):
             if tx["from"] == addr:
                 relevant_txes.append(tx)
 
+        # TODO: add methods to get value if the tx value is 0 (non-ether tx)
+
         return relevant_txes
 
 
 def main():
+    import json
+
     tricrypto_contract = Contract(
         address="0x331aF2E331bd619DefAa5DAc6c038f53FCF9F785",
         api_key=os.environ["ETHERSCAN_API_KEY"],
     )
-    user = "0x0cab140387F737ba642a8cEeeA0D8480668cd92f"
+    user = "0xcAf2d3f6c4A375ccEC74eB7eD5c03f5B6cd8876E"
 
     user_txes = tricrypto_contract.get_tx_with(addr=user.lower())
-
+    for tx in user_txes:
+        print(json.dumps(tx, indent=4))
 
 
 if __name__ == "__main__":
