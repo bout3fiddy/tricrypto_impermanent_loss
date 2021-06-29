@@ -10,18 +10,23 @@ class Contract(Account):
         self.url_dict[self.MODULE] = "account"
 
     def get_tx_with(
-        self, addr: str, start_block: int = 0, end_block=99999999, sort="asc"
+        self, addr: str, start_block: int = 0, end_block: int = -1, sort="asc"
     ):
 
         self.url_dict[self.ACTION] = "txlist"
         self.url_dict[self.SORT] = sort
         self.url_dict[self.START_BLOCK] = str(start_block)
-        self.url_dict[self.END_BLOCK] = str(end_block)
+        end_block = str(end_block)
+        if int(end_block) == -1:
+            end_block = "latest"
+        self.url_dict[self.END_BLOCK] = end_block
         self.build_url()
         req = self.connect()
         relevant_txes = []
         for tx in req["result"]:
             if tx["from"] == addr:
+                if int(tx["value"]) == 0:
+                    print("TX was non-ETH. Need to look into LOGS!")
                 relevant_txes.append(tx)
 
         # TODO: add methods to get value if the tx value is 0 (non-ether tx)
