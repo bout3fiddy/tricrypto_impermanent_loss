@@ -60,7 +60,6 @@ def get_liquidity_positions(
         token_balance_to_calc_on = gauge_bal
 
     # calculating position of coins in LP:
-
     # TODO: currently the following is hardcoded to tricrypto. make it more flexible.
     # this will ensure that the code is prepared for other curve v2
     token_names = ["USDT", "WBTC", "ETH"]
