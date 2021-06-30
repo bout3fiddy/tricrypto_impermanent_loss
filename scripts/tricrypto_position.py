@@ -1,5 +1,24 @@
+from datetime import datetime
+import pytz
+
 from brownie import *
 from .utils.contract_utils import load_contract
+
+from pycoingecko import CoinGeckoAPI
+
+
+COINGECKO = CoinGeckoAPI()
+
+
+def get_prices_of_coins():
+    eth_price = COINGECKO.get_price(ids="ethereum", vs_currencies="usd")["ethereum"][
+        "usd"
+    ]
+    wbtc_price = COINGECKO.get_price(ids="wrapped-bitcoin", vs_currencies="usd")[
+        "wrapped-bitcoin"
+    ]["usd"]
+    usdt_price = COINGECKO.get_price(ids="tether", vs_currencies="usd")["tether"]["usd"]
+    return {"WBTC": wbtc_price, "ETH": eth_price, "USDT": usdt_price}
 
 
 def get_liquidity_positions(
@@ -59,6 +78,8 @@ def get_liquidity_positions(
         print("User has staked all LP tokens in the gauge.")
         token_balance_to_calc_on = gauge_bal
 
+    token_prices_coingecko = get_prices_of_coins()
+
     # calculating position of coins in LP:
     # TODO: currently the following is hardcoded to tricrypto. make it more flexible.
     # this will ensure that the code is prepared for other curve v2
@@ -80,13 +101,17 @@ def get_liquidity_positions(
         _val = _coins * _price
         position_data = {
             "token_contract_address": _token.address,
-            "curve_oracle_price": _price,
+            "curve_oracle_price_usd": _price,
             "num_tokens": _coins,
-            "value_tokens": _val,
+            "value_tokens_usd": _val,
+            "coingecko_price_usd": token_prices_coingecko[token_names[i]],
         }
         final_positions[token_names[i]] = position_data
 
-    return final_positions
+    time_now = pytz.utc.localize(datetime.utcnow()).strftime("%Y%m%dT%H%M%S%Z")
+    timestamped_output = {time_now: final_positions}
+
+    return timestamped_output
 
 
 def main():

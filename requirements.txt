@@ -46,6 +46,7 @@ py==1.10.0
 py-etherscan-api==0.8.0
 py-solc-ast==1.2.8
 py-solc-x==1.1.0
+pycoingecko==2.2.0
 pycryptodome==3.10.1
 Pygments==2.8.1
 pygments-lexer-solidity==0.7.0
