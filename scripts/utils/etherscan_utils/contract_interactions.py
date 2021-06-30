@@ -1,5 +1,3 @@
-import os
-
 from etherscan.client import Client
 from etherscan.accounts import Account
 
@@ -25,17 +23,14 @@ class Contract(Account):
         relevant_txes = []
         for tx in req["result"]:
             if tx["from"] == addr:
-                if int(tx["value"]) == 0:
-                    print("TX was non-ETH. Need to look into LOGS!")
                 relevant_txes.append(tx)
-
-        # TODO: add methods to get value if the tx value is 0 (non-ether tx)
 
         return relevant_txes
 
 
 def main():
     import json
+    import os
 
     tricrypto_contract = Contract(
         address="0x331aF2E331bd619DefAa5DAc6c038f53FCF9F785",
