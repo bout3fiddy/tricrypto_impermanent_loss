@@ -5,7 +5,6 @@ from .utils.contract_utils import load_contract
 def get_liquidity_positions(
     user_addr: str,
     curve_liquidity_pool: Contract,
-    curve_registry: Contract,
     liquidity_pool_convex_gauge: Contract,
     liquidity_pool_curve_gauge: Contract,
     liquidity_pool_token: Contract,
@@ -64,29 +63,36 @@ def get_liquidity_positions(
 
     # TODO: currently the following is hardcoded to tricrypto. make it more flexible.
     # this will ensure that the code is prepared for other curve v2
-    labels = ["usd", "wbtc", "eth"]
-    final = []
-    for i in range(len(labels)):
+    token_names = ["USDT", "WBTC", "ETH"]
+    final_positions = {}
+    for i in range(len(token_names)):
 
         _token = load_contract(curve_liquidity_pool.coins(i))
         _price = 1
-        if labels[i] not in ["usd"]:
-            _price = curve_liquidity_pool.price_oracle(i - 1) / 10 ** 18
+        price_from_curve_oracle = _price
+        if token_names[i] not in ["USDT"]:
+            price_from_curve_oracle = curve_liquidity_pool.price_oracle(i - 1)
+            _price = price_from_curve_oracle / 10 ** 18  # 18 digit precision
 
         _coins = (
             curve_liquidity_pool.calc_withdraw_one_coin(token_balance_to_calc_on, i)
             / 10 ** _token.decimals()
         )
-
         _val = _coins * _price
-        final.append(f"{labels[i]}: {_coins} @ ${_price:,.2f} = ${_val:,.2f}")
+        position_data = {
+            "token_contract_address": _token.address,
+            "curve_oracle_price": _price,
+            "num_tokens": _coins,
+            "value_tokens": _val,
+        }
+        final_positions[token_names[i]] = position_data
 
-    print("Balance Summary:")
-    for f in final:
-        print(f)
+    return final_positions
 
 
 def main():
+    import json
+
     user_addr = "0x57ef012861c4937a76b5d6061be800199a2b9100"
 
     tricrypto_contract = load_contract("0x80466c64868e1ab14a1ddf27a676c3fcbe638fe5")
@@ -101,14 +107,14 @@ def main():
         "0xcA3d75aC011BF5aD07a98d02f18225F9bD9A6BDF"
     )
 
-    get_liquidity_positions(
+    positions = get_liquidity_positions(
         user_addr=user_addr,
         curve_liquidity_pool=tricrypto_contract,
-        curve_registry=curve_registry,
         liquidity_pool_convex_gauge=convex_getrewards_contract,
         liquidity_pool_curve_gauge=tricrypto_curve_gauge,
         liquidity_pool_token=tricrypto_lp_token_contract,
     )
+    print(json.dumps(positions, indent=4))
 
 
 if __name__ == "__main__":
