@@ -1,7 +1,17 @@
 
 # Curve TriCrypto Position Tracker
 
-Tricrypto Position Tracker is a tool that allows a liquidity provider in [Curve's new v2 liquidity pool for US Dollar (Tether; USDT), Wrapped Bitcoin (WBTC) and Ether (ETH)](https://curve.fi/tricrypto). With this tool, a user is able to track the tokens deposited, price of the tokens when they were deposited, current position of tokens if the user decided to withdraw their entire liquidity in one of the three tokens, and so on. The project is currently open-sourced, and is under development.
+Tricrypto Position Tracker is a tool that allows a liquidity provider in [Curve's new v2 liquidity pool for US Dollar (Tether; USDT), Wrapped Bitcoin (WBTC) and Ether (ETH)](https://curve.fi/tricrypto) on the Ethereum blockchain. This tool enables monitoring one's liquidity pool positions.
+
+### Available Functionality
+1. Get current position in TriCrypto pool.
+
+### Planned
+1. Get Deposits and value of tokens when deposited.
+2. Get Get Withdrawls and value of tokens when withdrawn.
+
+### Holy Grail
+*Historical LP positions*
 
 ## Installation
 
