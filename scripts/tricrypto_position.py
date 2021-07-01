@@ -117,7 +117,7 @@ def get_liquidity_positions(
 def main():
     import json
 
-    user_addr = "0x57ef012861c4937a76b5d6061be800199a2b9100"
+    user_addr = "0x0cab140387F737ba642a8cEeeA0D8480668cd92f"
 
     tricrypto_contract = load_contract("0x80466c64868e1ab14a1ddf27a676c3fcbe638fe5")
     curve_registry = load_contract("0x90e00ace148ca3b23ac1bc8c240c2a7dd9c2d7f5")
