@@ -1,13 +1,25 @@
 from datetime import datetime
+from json import load
 import pytz
 
 from brownie import *
-from .utils.contract_utils import load_contract
 
 from pycoingecko import CoinGeckoAPI
 
-
 COINGECKO = CoinGeckoAPI()
+TRICRYPTO_CONTRACT_ADDR = "0x80466c64868e1ab14a1ddf27a676c3fcbe638fe5"
+TRICRYPTO_CURVE_GAUGE_ADDR = "0x6955a55416a06839309018A8B0cB72c4DDC11f15"
+TRICRYPTO_LP_TOKEN_ADDR = "0xcA3d75aC011BF5aD07a98d02f18225F9bD9A6BDF"
+CONVEX_GETREWARDS_CONTRACT_ADDR = "0x5Edced358e6C0B435D53CC30fbE6f5f0833F404F"
+
+
+def load_contract(c):
+    if c == ZERO_ADDRESS:
+        return None
+    try:
+        return Contract(c)
+    except:
+        return Contract.from_explorer(c)
 
 
 def get_prices_of_coins():
@@ -21,13 +33,13 @@ def get_prices_of_coins():
     return {"WBTC": wbtc_price, "ETH": eth_price, "USDT": usdt_price}
 
 
-def get_liquidity_positions(
-    user_addr: str,
-    curve_liquidity_pool: Contract,
-    liquidity_pool_convex_gauge: Contract,
-    liquidity_pool_curve_gauge: Contract,
-    liquidity_pool_token: Contract,
-):
+def get_tricrypto_liquidity_positions(user_addr: str):
+
+    # load contracts
+    curve_liquidity_pool = load_contract(TRICRYPTO_CONTRACT_ADDR)
+    liquidity_pool_convex_gauge = load_contract(CONVEX_GETREWARDS_CONTRACT_ADDR)
+    liquidity_pool_curve_gauge = load_contract(TRICRYPTO_CURVE_GAUGE_ADDR)
+    liquidity_pool_token = load_contract(TRICRYPTO_LP_TOKEN_ADDR)
 
     # get total number of LP tokens a user has in the tricrypto pool:
     gauge_bal_convex = liquidity_pool_convex_gauge.balanceOf(user_addr)
@@ -118,26 +130,7 @@ def main():
     import json
 
     user_addr = "0x0cab140387F737ba642a8cEeeA0D8480668cd92f"
-
-    tricrypto_contract = load_contract("0x80466c64868e1ab14a1ddf27a676c3fcbe638fe5")
-    curve_registry = load_contract("0x90e00ace148ca3b23ac1bc8c240c2a7dd9c2d7f5")
-    convex_getrewards_contract = load_contract(
-        "0x5Edced358e6C0B435D53CC30fbE6f5f0833F404F"
-    )
-    tricrypto_curve_gauge = load_contract(
-        curve_registry.get_gauges(tricrypto_contract)[0][0]
-    )
-    tricrypto_lp_token_contract = load_contract(
-        "0xcA3d75aC011BF5aD07a98d02f18225F9bD9A6BDF"
-    )
-
-    positions = get_liquidity_positions(
-        user_addr=user_addr,
-        curve_liquidity_pool=tricrypto_contract,
-        liquidity_pool_convex_gauge=convex_getrewards_contract,
-        liquidity_pool_curve_gauge=tricrypto_curve_gauge,
-        liquidity_pool_token=tricrypto_lp_token_contract,
-    )
+    positions = get_tricrypto_liquidity_positions(user_addr=user_addr)
     print(json.dumps(positions, indent=4))
 
 
