@@ -36,7 +36,7 @@ def main():
         address="0x331aF2E331bd619DefAa5DAc6c038f53FCF9F785",
         api_key=os.environ["ETHERSCAN_API_KEY"],
     )
-    user = "0xcAf2d3f6c4A375ccEC74eB7eD5c03f5B6cd8876E"
+    user = "0x2B99d34a2d45cFBF5B9d5d7595F28fD786AE61c7"
 
     user_txes = tricrypto_contract.get_tx_with(addr=user.lower())
     for tx in user_txes:

@@ -127,7 +127,7 @@ def get_tricrypto_liquidity_positions(user_addr: str):
 def main():
     import json
 
-    user_addr = "0x0cab140387F737ba642a8cEeeA0D8480668cd92f"
+    user_addr = "0x2B99d34a2d45cFBF5B9d5d7595F28fD786AE61c7"
     positions = get_tricrypto_liquidity_positions(user_addr=user_addr)
     print(json.dumps(positions, indent=4))
 

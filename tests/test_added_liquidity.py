@@ -15,7 +15,7 @@ class TestAddedLiquidity(unittest.TestCase):
             address="0x331aF2E331bd619DefAa5DAc6c038f53FCF9F785",
             api_key=os.environ["ETHERSCAN_API_KEY"],
         )
-        user = "0x0716266cc5d3c443e30b0c4e9c72afa33778e1de"
+        user = "0x2B99d34a2d45cFBF5B9d5d7595F28fD786AE61c7"
         user_transactions = tricrypto_contract.get_tx_with(addr=user.lower())
 
         for transaction in user_transactions:
