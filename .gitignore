@@ -5,3 +5,5 @@ build/
 reports/
 venv/
 *.code-workspace
+.vscode/
+.DS_Store
