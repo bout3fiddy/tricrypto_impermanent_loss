@@ -1,3 +1,4 @@
 web3
 pycoingecko
 py-etherscan-api
+flask

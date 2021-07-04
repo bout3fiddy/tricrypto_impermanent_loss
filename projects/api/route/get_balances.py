@@ -1,5 +1,5 @@
-from scripts.curve_positions_tracker.utils import init_contract
-from scripts.curve_positions_tracker.constants import (
+from utils import init_contract
+from constants import (
     TRICRYPTO_CURVE_GAUGE_ADDR,
     CONVEX_GETREWARDS_CONTRACT_ADDR,
     TRICRYPTO_LP_TOKEN_ADDR,

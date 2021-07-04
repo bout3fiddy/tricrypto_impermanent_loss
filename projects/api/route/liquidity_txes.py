@@ -1,9 +1,9 @@
 import os
 
-from scripts.curve_positions_tracker.constants import (
+from curve_positions_tracker.constants import (
     CURVE_CRYPTOSWAP_DEPOSIT_ZAP_CONTRACT_ADDR,
 )
-from scripts.curve_positions_tracker.utils import init_contract, EtherscanContract
+from utils import init_contract, EtherscanContract
 
 
 def get_added_liquidity(address: str):

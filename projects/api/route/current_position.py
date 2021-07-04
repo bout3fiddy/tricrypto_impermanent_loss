@@ -2,10 +2,10 @@ from datetime import datetime
 
 from web3 import Web3
 
-from scripts.curve_positions_tracker.get_balances import *
-from scripts.curve_positions_tracker.utils import get_prices_of_coins, init_contract
-from scripts.curve_positions_tracker.tricryptopool_methods import *
-from scripts.curve_positions_tracker.constants import TRICRYPTO_CONTRACT_ADDR
+from get_balances import *
+from curve_positions_tracker.utils import get_prices_of_coins, init_contract
+from curve_positions_tracker.tricryptopool_methods import *
+from curve_positions_tracker.constants import TRICRYPTO_CONTRACT_ADDR
 
 tricrypto_contract = init_contract(TRICRYPTO_CONTRACT_ADDR)
 
