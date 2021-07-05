@@ -5,13 +5,17 @@ Tricrypto Position Tracker is a tool that allows a liquidity provider in [Curve'
 
 ### Available Functionality
 1. Get current position in TriCrypto pool.
+2. Get deposits.
 
 ### Planned
-1. Get Deposits and value of tokens when deposited.
-2. Get Get Withdrawls and value of tokens when withdrawn.
+1. API using flask
+2. Front-end framework
+3. Deployed code in webpage
+4. Get value of tokens when deposited.
+5. Get Get Withdrawls and value of tokens when withdrawn.
 
 ### Holy Grail
-*Historical LP positions*
+*Historical LP positions* (will work with Archival nodes, but not enough experience there yet).
 
 ## Installation
 
@@ -19,7 +23,7 @@ There are a few packages to install in order to run the scripts in this reposito
 
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install the requirements in this repository. The user is encouraged to use virtual environments. The instructions here are tested on a 2021 Mac M1 Air.
 
-Requirements: Python > 3.6.0
+Requirements: Python >= 3.6.0
 
 ```bash
 # clone this repo
@@ -36,29 +40,6 @@ python3 -m pip install --upgrade pip
 
 # install requirements
 pip install -r ./requirements.txt
-```
-
-This should give you most of the tools necessary for running the scripts. There are a few more steps needed to run [eth-brownie](https://eth-brownie.readthedocs.io/en/stable/), which is one of the frameworks used to interact with the Ethereum blockchain (mainnet).
-
-To install eth-brownie, you need the following:
-- Node.js > 6.11.5
-- npm
-- ganache-cli
-
-1. Install Node.js from [here](https://nodejs.org/). To check Node Installation:
-```bash
-node -v
-```
-2. Install npm from [here](https://npmjs.com/get-npm). To check version:
-
-```bash
-npm -v
-```
-3. Install [ganache-cli](https://www.trufflesuite.com/ganache)
-
-```bash
-npm install -g ganache-cli
-ganache-cli --version
 ```
 
 ## Usage
