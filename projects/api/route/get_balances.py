@@ -1,5 +1,5 @@
-from utils import init_contract
-from constants import (
+from projects.api.route.utils import init_contract
+from projects.api.route.constants import (
     TRICRYPTO_CURVE_GAUGE_ADDR,
     CONVEX_GETREWARDS_CONTRACT_ADDR,
     TRICRYPTO_LP_TOKEN_ADDR,

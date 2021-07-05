@@ -2,7 +2,8 @@ from datetime import datetime
 
 from web3 import Web3
 
-from get_balances import *
+from projects.api.route.get_balances import *
+from projects.api.route.constants import TRICRYPTO_CONTRACT_ADDR
 from projects.api.route.tricryptopool_methods import token_contract, price_oracle, calc_withdraw_one_coin
 from projects.api.route.utils import get_prices_of_coins
 

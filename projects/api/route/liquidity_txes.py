@@ -1,7 +1,7 @@
 import os
 
 from projects.api.route.constants import CURVE_CRYPTOSWAP_DEPOSIT_ZAP_CONTRACT_ADDR
-from utils import init_contract, EtherscanContract
+from projects.api.route.utils import init_contract, EtherscanContract
 
 
 def get_added_liquidity(address: str):
