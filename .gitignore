@@ -7,3 +7,4 @@ venv/
 *.code-workspace
 .vscode/
 .DS_Store
+.idea/

@@ -1,8 +1,6 @@
 import os
 
-from curve_positions_tracker.constants import (
-    CURVE_CRYPTOSWAP_DEPOSIT_ZAP_CONTRACT_ADDR,
-)
+from projects.api.route.constants import CURVE_CRYPTOSWAP_DEPOSIT_ZAP_CONTRACT_ADDR
 from utils import init_contract, EtherscanContract
 
 

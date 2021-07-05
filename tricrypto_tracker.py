@@ -1,15 +1,8 @@
 import argparse
 import sys
 
-from scripts.curve_positions_tracker.liquidity_txes import get_added_liquidity
-from scripts.curve_positions_tracker.current_position import (
-    get_tricrypto_liquidity_positions,
-)
-
-# ---- CLI ----
-# The functions defined in this section are wrappers around the main Python
-# API allowing them to be called directly from the terminal as a CLI
-# executable/script.
+from projects.api.route.current_position import get_tricrypto_liquidity_positions
+from projects.api.route.liquidity_txes import get_added_liquidity
 
 
 def parse_args(args):
